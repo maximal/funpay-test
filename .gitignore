@@ -1,0 +1,45 @@
+# Editor directories and files
+/.vscode/*
+!/.vscode/extensions.json
+/.idea
+
+/vendor
+/node_modules
+
+/bootstrap/ssr
+/public/build
+/public/hot
+/public/storage
+/public/mix-manifest.json
+
+/storage/*.key
+
+.env
+.env.backup
+
+.phpunit.result.cache
+.phpstorm.meta.php
+_ide_helper.php
+
+docker-compose.override.yml
+
+Homestead.json
+Homestead.yaml
+
+npm-debug.log
+yarn-error.log
+
+# NPM’s lock file is disabled in favor of Bun’s one
+package-lock.json
+
+.DS_Store
+
+# RoadRunner files
+rr
+.rr.yaml
+
+# Code Quality and Test Reports
+cs.json
+cq.json
+gl-code-quality-report.json
+junit.xml

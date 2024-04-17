@@ -1,0 +1,40 @@
+
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    command: bash -c "php seed.php  &&  php test.php"
+    #command: php /var/www/artisan octane:start --host=0.0.0.0 --port=8000
+    volumes:
+      - .:/var/www
+      - ./docker/php.ini:/etc/php/8.3/cli/conf.d/php-settings.ini
+    environment:
+      IN_DOCKER: true
+    working_dir: /var/www
+    depends_on:
+      - database
+    healthcheck:
+      #test: ['CMD', 'curl', 'http://localhost:8000/api/v1/health']
+      test: ['CMD', 'true']
+      interval: 30s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  database:
+    image: mysql
+    ports:
+      - '${FORWARD_DB_PORT:-3306}:3306'
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_USER: ${DB_USERNAME:-user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-password}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-password}
+      MYSQL_DATABASE: ${DB_DATABASE:-database}
+    restart: unless-stopped
+
+volumes:
+  db_data:
